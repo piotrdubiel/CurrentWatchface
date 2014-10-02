@@ -23,6 +23,6 @@ public class ClockActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        clockLayout.addEvent(new Event(3.5f,6.0f, Color.BLUE));
+        clockLayout.addEvent(new Event(3.5f,12.5f, Color.BLUE));
     }
 }

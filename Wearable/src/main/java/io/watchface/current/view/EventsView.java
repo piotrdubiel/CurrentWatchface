@@ -74,6 +74,7 @@ public class EventsView extends View {
         private Paint eventPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         private Path path;
 
+        @SuppressWarnings("unused")
         private float phase;
         private float length;
 
@@ -88,8 +89,8 @@ public class EventsView extends View {
 
         public void generatePath() {
             path = new Path();
-            float startAngle = INIT_ANGLE;
-            float endAngle = INIT_ANGLE + 180f;
+            float startAngle = INIT_ANGLE + (event.getBegin() / 12f) * 360f;
+            float endAngle = INIT_ANGLE + (event.getEnd() / 12f) * 360f;
             path.arcTo(bounds, startAngle, endAngle - startAngle, false);
 
             PathMeasure measure = new PathMeasure(path, false);
@@ -100,6 +101,7 @@ public class EventsView extends View {
             canvas.drawPath(path, eventPaint);
         }
 
+        @SuppressWarnings("unused")
         public void setPhase(float phase) {
             this.phase = phase;
             eventPaint.setPathEffect(createPathEffect(length, phase, 0f));

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DialView">
+        <attr name="inset" format="dimension" />
+        <attr name="hour_mark_length" format="dimension" />
+        <attr name="hour_mark_width" format="dimension" />
+        <attr name="minute_mark_length" format="dimension" />
+        <attr name="minute_mark_width" format="dimension" />
+    </declare-styleable>
+</resources>
