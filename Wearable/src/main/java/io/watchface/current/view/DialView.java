@@ -4,9 +4,11 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.PointF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 public class DialView extends View {
+    private static final String TAG = "DialView";
     private PointF center;
 
     public DialView(Context context) {
@@ -27,5 +29,6 @@ public class DialView extends View {
         canvas.save();
 
         canvas.restore();
+        Log.d(TAG, "onDraw");
     }
 }
