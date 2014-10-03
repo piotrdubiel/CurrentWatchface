@@ -12,6 +12,7 @@ public class ClockLayout extends ViewGroup {
     private final static String TAG = "ClockLayout";
     private final EventsView eventsView;
     private final DialView dialView;
+    private final HandsView handsView;
 
     public ClockLayout(Context context) {
         this(context, null);
@@ -23,13 +24,15 @@ public class ClockLayout extends ViewGroup {
 
     public ClockLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        setBackgroundColor(Color.WHITE);
 
         dialView = new DialView(getContext());
         addView(dialView);
 
         eventsView = new EventsView(getContext());
         addView(eventsView);
+
+        handsView = new HandsView(getContext());
+        addView(handsView);
     }
 
     @Override
@@ -48,6 +51,7 @@ public class ClockLayout extends ViewGroup {
     private void update(int w, int h) {
         dialView.layout(0, 0, w, h);
         eventsView.layout(0, 0, w, h);
+        handsView.layout(0, 0, w, h);
     }
 
     public void addEvent(Event event) {

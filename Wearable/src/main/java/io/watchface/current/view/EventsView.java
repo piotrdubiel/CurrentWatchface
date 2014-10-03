@@ -3,6 +3,7 @@ package io.watchface.current.view;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -20,8 +21,8 @@ import io.watchface.current.model.Event;
 
 public class EventsView extends View {
     private static final String TAG = "EventsView";
-    private static final float MARGIN = 20f;
-    public static final float EVENT_WIDTH = 20f;
+    private static final float MARGIN = 24f;
+    public static final float EVENT_WIDTH = 8f;
     private List<EventDrawer> events = new ArrayList<EventDrawer>();
     private RectF bounds = new RectF();
 
@@ -35,6 +36,14 @@ public class EventsView extends View {
 
     public EventsView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+
+        init();
+    }
+
+    private void init() {
+        if (isInEditMode()) {
+            addEvent(new Event(3.5f,5.5f, Color.BLUE));
+        }
     }
 
     @Override
@@ -60,8 +69,9 @@ public class EventsView extends View {
         EventDrawer eventDrawer = new EventDrawer(event);
         events.add(eventDrawer);
 
-        ObjectAnimator.ofFloat(eventDrawer, "phase",
-                1.0f, 0.0f).setDuration(1000).start();
+        ObjectAnimator.ofFloat(eventDrawer, "phase", 1.0f, 0.0f)
+                .setDuration(1000)
+                .start();
 
         requestLayout();
         invalidate();
