@@ -49,11 +49,11 @@ public class DialView extends View {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DialView, defStyleAttr, 0);
         try {
             if (a != null) {
-                inset = a.getDimensionPixelSize(R.styleable.DialView_inset, 8);
-                hourMarkLength = a.getDimensionPixelSize(R.styleable.DialView_hour_mark_length, 18);
-                hourmarkWidth = a.getDimensionPixelSize(R.styleable.DialView_hour_mark_width, 3);
+                inset = a.getDimensionPixelSize(R.styleable.DialView_inset, 4);
+                hourMarkLength = a.getDimensionPixelSize(R.styleable.DialView_hour_mark_length, 14);
+                hourmarkWidth = a.getDimensionPixelSize(R.styleable.DialView_hour_mark_width, 6);
                 minuteMarkLength = a.getDimensionPixelSize(R.styleable.DialView_minute_mark_length, 8);
-                minuteMarkWidth = a.getDimensionPixelSize(R.styleable.DialView_minute_mark_width, 2);
+                minuteMarkWidth = a.getDimensionPixelSize(R.styleable.DialView_minute_mark_width, 1);
                 backgroundColor = a.getColor(R.styleable.DialView_background_color, Color.WHITE);
                 hourMarkColor = a.getColor(R.styleable.DialView_background_color, 0xFF333333);
                 minuteMarkColor = a.getColor(R.styleable.DialView_minute_mark_color, 0xFF333333);

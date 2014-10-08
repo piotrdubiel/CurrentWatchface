@@ -21,7 +21,7 @@ import io.watchface.current.model.Event;
 
 public class EventsView extends View {
     private static final String TAG = "EventsView";
-    private static final float MARGIN = 24f;
+    private static final float MARGIN = 28f;
     public static final float EVENT_WIDTH = 8f;
     private List<EventDrawer> events = new ArrayList<EventDrawer>();
     private RectF bounds = new RectF();

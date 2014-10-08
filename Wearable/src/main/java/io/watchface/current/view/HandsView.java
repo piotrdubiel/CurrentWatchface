@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.text.format.Time;
@@ -22,8 +23,11 @@ public class HandsView extends View {
     private PointF center = new PointF();
     private float phase;
     private final Paint hourHandPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint hourTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint minuteHandPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint minuteTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint secondHandPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint secondTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint dotPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     private Time time;
@@ -64,15 +68,15 @@ public class HandsView extends View {
             if (a != null) {
                 hourHandLength = a.getDimensionPixelSize(R.styleable.HandsView_hour_hand_length, 90);
                 hourHandWidth = a.getDimensionPixelSize(R.styleable.HandsView_hour_hand_width, 6);
-                hourHandColor = a.getColor(R.styleable.HandsView_hour_hand_color, 0xFF666666);
+                hourHandColor = a.getColor(R.styleable.HandsView_hour_hand_color, 0xFF424242);
 
-                minuteHandLength = a.getDimensionPixelSize(R.styleable.HandsView_minute_hand_length, 125);
+                minuteHandLength = a.getDimensionPixelSize(R.styleable.HandsView_minute_hand_length, 124);
                 minuteHandWidth = a.getDimensionPixelSize(R.styleable.HandsView_minute_hand_width, 3);
-                minuteHandColor = a.getColor(R.styleable.HandsView_minute_hand_color, 0xFF888888);
+                minuteHandColor = a.getColor(R.styleable.HandsView_minute_hand_color, 0xFF546E7A);
 
-                secondHandLength = a.getDimensionPixelSize(R.styleable.HandsView_second_hand_length, 120);
+                secondHandLength = a.getDimensionPixelSize(R.styleable.HandsView_second_hand_length, 116);
                 secondHandWidth = a.getDimensionPixelSize(R.styleable.HandsView_second_hand_width, 2);
-                secondHandColor = a.getColor(R.styleable.HandsView_second_hand_color, 0xFF4DA882);
+                secondHandColor = a.getColor(R.styleable.HandsView_second_hand_color, 0xFFE51C23);
 
 //                centerRadius = a.getDimensionPixelSize(R.styleable.HandsView_center_radius, 6);
 //                centerColor = a.getColor(R.styleable.HandsView_center_color, 0xFF333333);
@@ -89,18 +93,29 @@ public class HandsView extends View {
     private void init() {
         hourHandPaint.setColor(hourHandColor);
         hourHandPaint.setStrokeWidth(hourHandWidth);
-        hourHandPaint.setStrokeCap(Paint.Cap.ROUND);
+        hourHandPaint.setStrokeCap(Paint.Cap.BUTT);
         hourHandPaint.setStyle(Paint.Style.STROKE);
+        hourTextPaint.setColor(hourHandColor);
+        hourTextPaint.setTextSize(30);
+        hourTextPaint.setTypeface(Typeface.create("sans-serif-thin", Typeface.NORMAL));
+
 
         minuteHandPaint.setColor(minuteHandColor);
         minuteHandPaint.setStrokeWidth(minuteHandWidth);
-        minuteHandPaint.setStrokeCap(Paint.Cap.ROUND);
+        minuteHandPaint.setStrokeCap(Paint.Cap.BUTT);
         minuteHandPaint.setStyle(Paint.Style.STROKE);
+        minuteTextPaint.setColor(minuteHandColor);
+        minuteTextPaint.setTextSize(26);
+        minuteTextPaint.setTypeface(Typeface.create("sans-serif-thin",Typeface.NORMAL));
+
 
         secondHandPaint.setColor(secondHandColor);
         secondHandPaint.setStrokeWidth(secondHandWidth);
-        secondHandPaint.setStrokeCap(Paint.Cap.ROUND);
+        secondHandPaint.setStrokeCap(Paint.Cap.BUTT);
         secondHandPaint.setStyle(Paint.Style.STROKE);
+        secondTextPaint.setColor(secondHandColor);
+        secondTextPaint.setTextSize(24);
+        secondTextPaint.setTypeface(Typeface.create("sans-serif-thin", Typeface.NORMAL));
 
         dotPaint.setColor(centerColor);
         dotPaint.setStyle(Paint.Style.FILL);
@@ -121,6 +136,7 @@ public class HandsView extends View {
         float secondAngle = INIT_ANGLE + seconds * 360f;
         canvas.rotate(secondAngle);
         canvas.drawLine(0, 0, secondHandLength, 0, secondHandPaint);
+        //canvas.drawText(String.valueOf(time.second), 80f, -4, secondTextPaint);
         canvas.restore();
 
         canvas.save();
@@ -128,6 +144,7 @@ public class HandsView extends View {
         float minuteAngle = INIT_ANGLE + minutes * 360f;
         canvas.rotate(minuteAngle);
         canvas.drawLine(0, 0, minuteHandLength, 0, minuteHandPaint);
+        //canvas.drawText(String.valueOf(time.minute), 80f, -4, minuteTextPaint);
         canvas.restore();
 
         canvas.save();
@@ -135,6 +152,7 @@ public class HandsView extends View {
         float hourAngle = INIT_ANGLE + hours * 360f;
         canvas.rotate(hourAngle);
         canvas.drawLine(0, 0, hourHandLength, 0, hourHandPaint);
+        //canvas.drawText(String.valueOf(time.hour), 40f, -8, hourTextPaint);
         canvas.restore();
 
         canvas.drawCircle(0, 0, centerRadius, dotPaint);

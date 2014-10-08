@@ -13,6 +13,8 @@ public class ClockLayout extends ViewGroup {
     private final EventsView eventsView;
     private final DialView dialView;
     private final HandsView handsView;
+    private final DateView dateView;
+    private final BatteryView batteryView;
 
     public ClockLayout(Context context) {
         this(context, null);
@@ -27,6 +29,12 @@ public class ClockLayout extends ViewGroup {
 
         dialView = new DialView(getContext());
         addView(dialView);
+
+        dateView = new DateView(getContext());
+        addView(dateView);
+
+        batteryView = new BatteryView(getContext());
+        addView(batteryView);
 
         eventsView = new EventsView(getContext());
         addView(eventsView);
@@ -50,6 +58,8 @@ public class ClockLayout extends ViewGroup {
 
     private void update(int w, int h) {
         dialView.layout(0, 0, w, h);
+        dateView.layout(0, 0, w, h);
+        batteryView.layout(0, 0, w, h);
         eventsView.layout(0, 0, w, h);
         handsView.layout(0, 0, w, h);
     }
