@@ -42,7 +42,8 @@ public class EventsView extends View {
 
     private void init() {
         if (isInEditMode()) {
-            addEvent(new Event(3.5f,5.5f, Color.BLUE));
+            addEvent(new Event(3.5f,5.5f, 0xFF9A9CFF));
+            addEvent(new Event(1.0f,2.5f, 0xFF16A765));
         }
     }
 

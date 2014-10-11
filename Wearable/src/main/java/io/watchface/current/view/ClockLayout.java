@@ -59,7 +59,7 @@ public class ClockLayout extends ViewGroup {
     private void update(int w, int h) {
         dialView.layout(0, 0, w, h);
         dateView.layout(0, 0, w, h);
-        batteryView.layout(0, 0, w, h);
+        //batteryView.layout(0, 0, w, h);
         eventsView.layout(0, 0, w, h);
         handsView.layout(0, 0, w, h);
     }

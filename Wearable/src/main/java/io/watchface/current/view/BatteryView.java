@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.os.BatteryManager;
 import android.util.AttributeSet;
 import android.view.View;
@@ -16,9 +17,11 @@ import android.widget.ImageView;
 public class BatteryView extends View {
     private RectF bounds = new RectF();
     private PointF center = new PointF();
-    private float batterLevel = 1.0f;
+    private float batterLevel = 0.5f;
     private ImageView imageView;
     private final Paint batteryOutlinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint batteryInsidePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint batteryTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     public BatteryView(Context context) {
         this(context, null);
@@ -36,6 +39,13 @@ public class BatteryView extends View {
     private void init() {
         imageView = new ImageView(getContext());
         batteryOutlinePaint.setStyle(Paint.Style.STROKE);
+
+        batteryInsidePaint.setStyle(Paint.Style.FILL);
+        //batteryInsidePaint.setColor(0xFF42BD41);
+        batteryInsidePaint.setColor(0xFFBDBDBD);
+
+        batteryTextPaint.setTypeface(Typeface.create("sans-serif-thin", Typeface.NORMAL));
+        batteryTextPaint.setTextSize(20);
     }
 
     @Override
@@ -61,9 +71,18 @@ public class BatteryView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.save();
-        canvas.translate(center.x + 20, center.y - 15);
-        canvas.drawRect(0, 0, bounds.width() / 2 - 60, 30, batteryOutlinePaint);
+        canvas.translate(center.x + 12, center.y + 8);
+        String batterStatus = String.valueOf((int)(100 * batterLevel)) + "%";
+        canvas.drawText(batterStatus, 0, 0, batteryTextPaint);
+        canvas.restore();
 
+        canvas.save();
+        float batteryLength = bounds.width() / 2 - 120;
+        float batteryHeight = 20;
+        canvas.translate(center.x + 70, center.y - batteryHeight / 2);
+        canvas.drawRect(0, 0, batteryLength * batterLevel, batteryHeight, batteryInsidePaint);
+        canvas.drawRect(0, 0, batteryLength, batteryHeight, batteryOutlinePaint);
+        canvas.drawRect(batteryLength, 6, batteryLength + 4, 14, batteryOutlinePaint);
         canvas.restore();
     }
 

@@ -9,18 +9,23 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.text.SpannableStringBuilder;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
+import android.text.style.TypefaceSpan;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class DateView extends View {
+public class DateView extends TextView {
     private Calendar calendar;
-    private RectF bounds = new RectF();
-    private PointF center = new PointF();
     private DateFormat dayFormat;
     private DateFormat dateFormat;
     private final Paint dayPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -49,6 +54,8 @@ public class DateView extends View {
         datePaint.setTypeface(Typeface.create("sans-serif-thin", Typeface.NORMAL));
         datePaint.setTextSize(36);
 
+        setTypeface(Typeface.create("sans-serif-thin", Typeface.NORMAL));
+
         if (isInEditMode()) {
             update();
         }
@@ -58,31 +65,13 @@ public class DateView extends View {
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         registerReceivers();
+        update();
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         unregisterReceivers();
-    }
-
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        bounds = new RectF(0, 0, w, h);
-        center = new PointF(bounds.centerX(), bounds.centerY());
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        canvas.save();
-        String day = dayFormat.format(calendar.getTime());
-        String date = dateFormat.format(calendar.getTime());
-        canvas.drawText(date, 40, center.y - 10, datePaint);
-        canvas.drawLine(40, center.y, center.x - 20, center.y, datePaint);
-        canvas.drawText(day, 40, center.y + 20, dayPaint);
-        canvas.restore();
     }
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
@@ -94,7 +83,17 @@ public class DateView extends View {
 
     private void update() {
         calendar.setTimeInMillis(System.currentTimeMillis());
-        invalidate();
+        String dateText = dateFormat.format(calendar.getTime());
+        String dayText = dayFormat.format(calendar.getTime());
+        SpannableStringBuilder stringBuilder = new SpannableStringBuilder(dateText);
+        stringBuilder.setSpan(new AbsoluteSizeSpan(25, true), 0, stringBuilder.length(), 0);
+        stringBuilder.setSpan(new ForegroundColorSpan(0xFF212121), 0, 2, 0);
+        stringBuilder.setSpan(new ForegroundColorSpan(0xFF3E2723), 3, stringBuilder.length(), 0);
+        stringBuilder.append("\n");
+        stringBuilder.append(dayText);
+        stringBuilder.setSpan(new AbsoluteSizeSpan(16, true), dateText.length() + 1, stringBuilder.length(), 0);
+        stringBuilder.setSpan(new ForegroundColorSpan(0xFFB0120A), dateText.length() + 1, stringBuilder.length(), 0);
+        setText(stringBuilder);
     }
 
     private void registerReceivers() {
