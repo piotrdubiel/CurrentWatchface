@@ -1,4 +1,4 @@
-package io.watchface.current.view;
+package io.watchface.current.common.view;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

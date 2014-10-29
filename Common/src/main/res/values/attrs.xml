@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DialView">
+        <attr name="background_color" format="color" />
+        <attr name="inset" format="dimension" />
+
+        <attr name="hour_mark_length" format="dimension" />
+        <attr name="hour_mark_width" format="dimension" />
+        <attr name="hour_mark_color" format="color" />
+
+        <attr name="minute_mark_length" format="dimension" />
+        <attr name="minute_mark_width" format="dimension" />
+        <attr name="minute_mark_color" format="color" />
+
+        <attr name="bottom_inset" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="HandsView">
+        <attr name="hour_hand_length" format="dimension" />
+        <attr name="hour_hand_width" format="dimension" />
+        <attr name="hour_hand_color" format="color" />
+
+        <attr name="minute_hand_length" format="dimension" />
+        <attr name="minute_hand_width" format="dimension" />
+        <attr name="minute_hand_color" format="color" />
+
+        <attr name="second_hand_length" format="dimension" />
+        <attr name="second_hand_width" format="dimension" />
+        <attr name="second_hand_color" format="color" />
+
+        <attr name="center_radius" format="dimension" />
+        <attr name="center_color" format="color" />
+    </declare-styleable>
+</resources>

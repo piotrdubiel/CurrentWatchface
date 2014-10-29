@@ -1,4 +1,4 @@
-package io.watchface.current.model;
+package io.watchface.current.common.model;
 
 public class Event {
     private float begin;

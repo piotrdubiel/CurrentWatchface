@@ -1,9 +1,8 @@
-package io.watchface.current.view;
+package io.watchface.current.common.view;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -17,11 +16,11 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.watchface.current.model.Event;
+import io.watchface.current.common.model.Event;
 
 public class EventsView extends View {
     private static final String TAG = "EventsView";
-    private static final float MARGIN = 28f;
+    private static final float MARGIN = 40f;
     public static final float EVENT_WIDTH = 8f;
     private List<EventDrawer> events = new ArrayList<EventDrawer>();
     private RectF bounds = new RectF();

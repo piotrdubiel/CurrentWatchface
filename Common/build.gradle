@@ -1,8 +1,14 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 20
+    compileSdkVersion 21
     buildToolsVersion "20.0.0"
+
+    defaultConfig {
+        applicationId "io.watchface.current.common"
+        minSdkVersion 19
+        targetSdkVersion 21
+    }
 
     buildTypes {
         release {

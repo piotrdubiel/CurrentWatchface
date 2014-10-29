@@ -1,4 +1,4 @@
-package io.watchface.current.view;
+package io.watchface.current.common.view;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -12,7 +12,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
-import io.watchface.current.R;
+import io.watchface.current.common.R;
 
 public class DialView extends View {
     private static final String TAG = "DialView";
@@ -49,9 +49,9 @@ public class DialView extends View {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DialView, defStyleAttr, 0);
         try {
             if (a != null) {
-                inset = a.getDimensionPixelSize(R.styleable.DialView_inset, 4);
-                hourMarkLength = a.getDimensionPixelSize(R.styleable.DialView_hour_mark_length, 14);
-                hourmarkWidth = a.getDimensionPixelSize(R.styleable.DialView_hour_mark_width, 6);
+                inset = a.getDimensionPixelSize(R.styleable.DialView_inset, 10);
+                hourMarkLength = a.getDimensionPixelSize(R.styleable.DialView_hour_mark_length, 16);
+                hourmarkWidth = a.getDimensionPixelSize(R.styleable.DialView_hour_mark_width, 4);
                 minuteMarkLength = a.getDimensionPixelSize(R.styleable.DialView_minute_mark_length, 8);
                 minuteMarkWidth = a.getDimensionPixelSize(R.styleable.DialView_minute_mark_width, 1);
                 backgroundColor = a.getColor(R.styleable.DialView_background_color, Color.WHITE);
@@ -126,6 +126,7 @@ public class DialView extends View {
         }
 
         canvas.restore();
+
         Log.d(TAG,"onDraw");
     }
 

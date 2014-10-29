@@ -1,22 +1,14 @@
-package io.watchface.current.view;
+package io.watchface.current.common.view;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PointF;
-import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.text.SpannableStringBuilder;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
-import android.text.style.TypefaceSpan;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -28,8 +20,6 @@ public class DateView extends TextView {
     private Calendar calendar;
     private DateFormat dayFormat;
     private DateFormat dateFormat;
-    private final Paint dayPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private final Paint datePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     public DateView(Context context) {
         this(context, null);
@@ -47,14 +37,11 @@ public class DateView extends TextView {
     private void init() {
         calendar = GregorianCalendar.getInstance();
         dayFormat = new SimpleDateFormat("EEEE");
-        dayPaint.setTypeface(Typeface.create("sans-serif-thin", Typeface.NORMAL));
-        dayPaint.setTextSize(20);
 
         dateFormat = new SimpleDateFormat("dd MMM");
-        datePaint.setTypeface(Typeface.create("sans-serif-thin", Typeface.NORMAL));
-        datePaint.setTextSize(36);
 
         setTypeface(Typeface.create("sans-serif-thin", Typeface.NORMAL));
+        setTextAlignment(TEXT_ALIGNMENT_CENTER);
 
         if (isInEditMode()) {
             update();
@@ -86,13 +73,13 @@ public class DateView extends TextView {
         String dateText = dateFormat.format(calendar.getTime());
         String dayText = dayFormat.format(calendar.getTime());
         SpannableStringBuilder stringBuilder = new SpannableStringBuilder(dateText);
-        stringBuilder.setSpan(new AbsoluteSizeSpan(25, true), 0, stringBuilder.length(), 0);
+        stringBuilder.setSpan(new AbsoluteSizeSpan(20, true), 0, stringBuilder.length(), 0);
         stringBuilder.setSpan(new ForegroundColorSpan(0xFF212121), 0, 2, 0);
-        stringBuilder.setSpan(new ForegroundColorSpan(0xFF3E2723), 3, stringBuilder.length(), 0);
+        stringBuilder.setSpan(new ForegroundColorSpan(0xFF212121), 3, stringBuilder.length(), 0);
         stringBuilder.append("\n");
         stringBuilder.append(dayText);
-        stringBuilder.setSpan(new AbsoluteSizeSpan(16, true), dateText.length() + 1, stringBuilder.length(), 0);
-        stringBuilder.setSpan(new ForegroundColorSpan(0xFFB0120A), dateText.length() + 1, stringBuilder.length(), 0);
+        stringBuilder.setSpan(new AbsoluteSizeSpan(12, true), dateText.length() + 1, stringBuilder.length(), 0);
+        stringBuilder.setSpan(new ForegroundColorSpan(0xFF212121), dateText.length() + 1, stringBuilder.length(), 0);
         setText(stringBuilder);
     }
 

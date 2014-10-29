@@ -1,12 +1,11 @@
-package io.watchface.current.view;
+package io.watchface.current.common.view;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewGroup;
 
-import io.watchface.current.model.Event;
+import io.watchface.current.common.model.Event;
 
 public class ClockLayout extends ViewGroup {
     private final static String TAG = "ClockLayout";

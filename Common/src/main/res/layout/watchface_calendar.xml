@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/clock_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <io.watchface.current.common.view.DialView
+        android:id="@+id/dial_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true">
+
+        <io.watchface.current.common.view.DateView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <io.watchface.current.common.view.EventsView
+        android:id="@+id/events_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <io.watchface.current.common.view.HandsView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</RelativeLayout>

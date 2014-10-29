@@ -1,4 +1,4 @@
-package io.watchface.current.view;
+package io.watchface.current.common.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -11,11 +11,13 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.text.format.Time;
 import android.util.AttributeSet;
 import android.view.View;
 
-import io.watchface.current.R;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+import io.watchface.current.common.R;
 
 public class HandsView extends View {
     private static final String TAG = "HandsView";
@@ -36,7 +38,7 @@ public class HandsView extends View {
     private final Paint detailPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint dotPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-    private Time time;
+    private Calendar calendar;
     private Runnable ticker;
     private Handler handler;
     private boolean stopped;
@@ -71,20 +73,20 @@ public class HandsView extends View {
     public HandsView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DialView, defStyleAttr, 0);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.HandsView, defStyleAttr, 0);
         try {
             if (a != null) {
-                hourHandLength = a.getDimensionPixelSize(R.styleable.HandsView_hour_hand_length, 90);
+                hourHandLength = a.getDimensionPixelSize(R.styleable.HandsView_hour_hand_length, 110);
                 hourHandWidth = a.getDimensionPixelSize(R.styleable.HandsView_hour_hand_width, 8);
                 hourHandDetailWidth = hourHandWidth / 2;
                 hourHandColor = a.getColor(R.styleable.HandsView_hour_hand_color, 0xFF424242);
 
-                minuteHandLength = a.getDimensionPixelSize(R.styleable.HandsView_minute_hand_length, 124);
-                minuteHandWidth = a.getDimensionPixelSize(R.styleable.HandsView_minute_hand_width, 4);
+                minuteHandLength = a.getDimensionPixelSize(R.styleable.HandsView_minute_hand_length, 120);
+                minuteHandWidth = a.getDimensionPixelSize(R.styleable.HandsView_minute_hand_width, 6);
                 minuteHandDetailWidth = minuteHandWidth  / 2;
                 minuteHandColor = a.getColor(R.styleable.HandsView_minute_hand_color, 0xFF546E7A);
 
-                secondHandLength = a.getDimensionPixelSize(R.styleable.HandsView_second_hand_length, 116);
+                secondHandLength = a.getDimensionPixelSize(R.styleable.HandsView_second_hand_length, 130);
                 secondHandWidth = a.getDimensionPixelSize(R.styleable.HandsView_second_hand_width, 2);
                 secondHandColor = a.getColor(R.styleable.HandsView_second_hand_color, 0xFFE51C23);
 
@@ -115,6 +117,7 @@ public class HandsView extends View {
         hourTextPaint.setTypeface(Typeface.create("sans-serif-thin", Typeface.NORMAL));
 
 
+
         minuteHandPaint.setColor(minuteHandColor);
         minuteHandPaint.setStrokeWidth(1);
         minuteHandPaint.setStrokeCap(Paint.Cap.BUTT);
@@ -137,9 +140,9 @@ public class HandsView extends View {
         dotPaint.setColor(centerColor);
         dotPaint.setStyle(Paint.Style.FILL);
 
-        time = new Time();
-
         setBackgroundColor(Color.TRANSPARENT);
+
+        calendar = GregorianCalendar.getInstance();
     }
 
     @Override
@@ -149,7 +152,7 @@ public class HandsView extends View {
         canvas.translate(center.x, center.y);
 
         canvas.save();
-        float seconds = time.second / 60f;
+        float seconds = calendar.get(Calendar.SECOND) / 60f;
         float secondAngle = INIT_ANGLE + seconds * 360f;
         canvas.rotate(secondAngle);
         canvas.drawLine(0, 0, secondHandLength, 0, secondHandPaint);
@@ -157,20 +160,20 @@ public class HandsView extends View {
         canvas.restore();
 
         canvas.save();
-        float minutes = (time.minute + seconds) / 60f;
+        float minutes = (calendar.get(Calendar.MINUTE) + seconds) / 60f;
         float minuteAngle = INIT_ANGLE + minutes * 360f;
         canvas.rotate(minuteAngle);
-        canvas.drawRoundRect(minuteHandBounds, 2, 2, minuteHandPaint);
+        canvas.drawRect(minuteHandBounds,  minuteHandPaint);
         canvas.drawRect(minuteHandDetailBounds, detailPaint);
         //canvas.drawLine(0, 0, minuteHandLength, 0, minuteHandPaint);
         //canvas.drawText(String.valueOf(time.minute), 80f, -4, minuteTextPaint);
         canvas.restore();
 
         canvas.save();
-        float hours = (time.hour + minutes) / 12f;
+        float hours = (calendar.get(Calendar.HOUR) + minutes) / 12f;
         float hourAngle = INIT_ANGLE + hours * 360f;
         canvas.rotate(hourAngle);
-        canvas.drawRoundRect(hourHandBounds, 2, 2, hourHandPaint);
+        canvas.drawRect(hourHandBounds, hourHandPaint);
         canvas.drawRect(hourHandDetailBounds, detailPaint);
         //canvas.drawLine(0, 0, hourHandLength, 0, hourHandPaint);
         //canvas.drawText(String.valueOf(time.hour), 40f, -8, hourTextPaint);
@@ -198,7 +201,7 @@ public class HandsView extends View {
         ticker = new Runnable() {
             public void run() {
                 if (stopped) return;
-                time.set(System.currentTimeMillis());
+                calendar.setTimeInMillis(System.currentTimeMillis());
                 invalidate();
                 long now = SystemClock.uptimeMillis();
                 long next = now + (1000 - now % 1000);
