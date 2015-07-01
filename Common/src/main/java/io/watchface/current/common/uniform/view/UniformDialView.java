@@ -1,6 +1,5 @@
 package io.watchface.current.common.uniform.view;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;

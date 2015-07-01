@@ -1,18 +1,15 @@
 package io.watchface.current.common.uniform.view;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.util.AttributeSet;
 import android.view.View;
 
 import java.util.Calendar;

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Current</string>
+    <string name="watchface_label_time_color">Time Color</string>
 </resources>

@@ -1,33 +1,33 @@
 package io.watchface.current;
 
-import android.app.Activity;
-import android.os.Bundle;
+import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.support.wearable.watchface.CanvasWatchFaceService;
 
 import io.watchface.current.common.model.Event;
 import io.watchface.current.common.view.EventsView;
 
-public class CalendarWatchface extends Activity {
-    private boolean isDimmed = false;
-    private EventsView eventsView;
+
+public class CalendarWatchface extends CanvasWatchFaceService {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.watchface_calendar);
-        eventsView = (EventsView) findViewById(R.id.events_view);
-        eventsView.addEvent(new Event(3.5f,11.5f, 0xFF9A9CFF));
-        eventsView.addEvent(new Event(1.0f, 2.5f, 0xFF16A765));
+    public Engine onCreateEngine() {
+        return new Engine();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        isDimmed = true;
-    }
+    private class Engine extends CanvasWatchFaceService.Engine {
+        EventsView eventsView;
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        isDimmed = false;
+        public Engine() {
+            eventsView = new EventsView(CalendarWatchface.this);
+            eventsView.addEvent(new Event(3.5f, 11.5f, 0xFF9A9CFF));
+            eventsView.addEvent(new Event(1.0f, 2.5f, 0xFF16A765));
+        }
+
+        @Override
+        public void onDraw(Canvas canvas, Rect bounds) {
+            super.onDraw(canvas, bounds);
+            eventsView.draw(canvas);
+        }
     }
 }

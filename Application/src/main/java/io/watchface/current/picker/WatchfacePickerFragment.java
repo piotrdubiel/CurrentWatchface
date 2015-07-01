@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import io.watchface.current.R;
 
@@ -12,15 +13,11 @@ public class WatchfacePickerFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    /**
-     * Returns a new instance of this fragment for the given section
-     * number.
-     */
-    public static WatchfacePickerFragment newInstance(int sectionNumber) {
+    private View watchfacePreview;
+
+    public static WatchfacePickerFragment newInstance(View watchfacePreview) {
         WatchfacePickerFragment fragment = new WatchfacePickerFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
+        fragment.watchfacePreview = watchfacePreview;
         return fragment;
     }
 
@@ -33,6 +30,9 @@ public class WatchfacePickerFragment extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_watchface_picker, container, false);
+
+        LinearLayout contentView = (LinearLayout) rootView.findViewById(R.id.content);
+        contentView.addView(watchfacePreview);
 
         return rootView;
     }

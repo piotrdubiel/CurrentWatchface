@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import java.util.Locale;
 
 import io.watchface.current.R;
+import io.watchface.current.common.uniform.view.UniformLayout;
 
 public class WatchfacePickerActivity extends FragmentActivity {
 
@@ -78,9 +79,8 @@ public class WatchfacePickerActivity extends FragmentActivity {
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return WatchfacePickerFragment.newInstance(position + 1);
+            UniformLayout watchfacePreview = new UniformLayout(WatchfacePickerActivity.this);
+            return WatchfacePickerFragment.newInstance(watchfacePreview);
         }
 
         @Override

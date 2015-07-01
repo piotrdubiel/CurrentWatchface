@@ -13,7 +13,6 @@ public class ClockLayout extends ViewGroup {
     private final DialView dialView;
     private final HandsView handsView;
     private final DateView dateView;
-    private final BatteryView batteryView;
 
     public ClockLayout(Context context) {
         this(context, null);
@@ -31,9 +30,6 @@ public class ClockLayout extends ViewGroup {
 
         dateView = new DateView(getContext());
         addView(dateView);
-
-        batteryView = new BatteryView(getContext());
-        addView(batteryView);
 
         eventsView = new EventsView(getContext());
         addView(eventsView);

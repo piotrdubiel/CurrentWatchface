@@ -2,38 +2,62 @@
     package="io.watchface.current">
     <uses-feature android:name="android.hardware.type.watch" />
 
+    <!-- Required to act as a custom watch face. -->
+    <uses-permission android:name="com.google.android.permission.PROVIDE_BACKGROUND" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- Calendar permission used by CalendarWatchFaceService -->
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+
+
     <application android:allowBackup="true"
         android:label="@string/app_name"
         android:icon="@drawable/ic_launcher"
         android:theme="@android:style/Theme.DeviceDefault">
 
-        <activity
+
+
+        <service
             android:name=".CalendarWatchface"
             android:label="@string/watchface_label_calendar"
-            android:theme="@android:style/Theme.DeviceDefault.NoActionBar"
-            android:allowEmbedded="true">
-
-            <meta-data android:name="com.google.android.clockwork.home.preview" android:resource="@drawable/preview_calendar" />
-
+            android:allowEmbedded="true"
+            android:taskAffinity=""
+            android:permission="android.permission.BIND_WALLPAPER" >
+            <meta-data
+                android:name="android.service.wallpaper"
+                android:resource="@xml/watch_face" />
+            <meta-data
+                android:name="com.google.android.wearable.watchface.preview"
+                android:resource="@drawable/preview_calendar" />
+            <meta-data
+                android:name="com.google.android.wearable.watchface.preview_circular"
+                android:resource="@drawable/preview_calendar" />
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.google.android.clockwork.home.category.HOME_BACKGROUND" />
+                <action android:name="android.service.wallpaper.WallpaperService" />
+                <category android:name="com.google.android.wearable.watchface.category.WATCH_FACE" />
             </intent-filter>
-        </activity>
+        </service>
 
-        <activity
-            android:name=".ColorfulWatchface"
-            android:label="@string/watchface_label_colorful"
-            android:theme="@android:style/Theme.DeviceDefault.NoActionBar"
-            android:allowEmbedded="true">
-
-            <meta-data android:name="com.google.android.clockwork.home.preview" android:resource="@drawable/preview" />
-
+        <service
+            android:name=".TimeColorWatchService"
+            android:label="@string/watchface_label_time_color"
+            android:allowEmbedded="true"
+            android:taskAffinity=""
+            android:permission="android.permission.BIND_WALLPAPER" >
+            <meta-data
+                android:name="android.service.wallpaper"
+                android:resource="@xml/watch_face" />
+            <meta-data
+                android:name="com.google.android.wearable.watchface.preview"
+                android:resource="@drawable/preview_calendar" />
+            <meta-data
+                android:name="com.google.android.wearable.watchface.preview_circular"
+                android:resource="@drawable/preview_calendar" />
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.google.android.clockwork.home.category.HOME_BACKGROUND" />
+                <action android:name="android.service.wallpaper.WallpaperService" />
+                <category android:name="com.google.android.wearable.watchface.category.WATCH_FACE" />
             </intent-filter>
-        </activity>
+        </service>
 
     </application>
 

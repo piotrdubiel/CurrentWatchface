@@ -13,8 +13,11 @@ android {
         versionName "1.0"
     }
     buildTypes {
+        debug {
+            minifyEnabled false
+        }
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -25,4 +28,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-wearable:6.1.11'
     compile 'com.android.support:support-v4:21.0.0'
     compile 'com.android.support:support-v13:21.0.0'
+    compile project(':Common')
 }

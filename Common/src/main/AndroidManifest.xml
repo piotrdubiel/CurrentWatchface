@@ -1,23 +1,7 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.watchface.current.common">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="io.watchface.current.common">
 
     <application android:allowBackup="true"
         android:label="@string/app_name">
-
-        <activity
-            android:name=".uniform.UniformWatchface"
-            android:label="@string/watchface_label_uniform"
-            android:theme="@android:style/Theme.DeviceDefault.NoActionBar"
-            android:allowEmbedded="true">
-
-            <meta-data android:name="com.google.android.clockwork.home.preview" android:resource="@drawable/preview" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.google.android.clockwork.home.category.HOME_BACKGROUND" />
-            </intent-filter>
-        </activity>
-
     </application>
 
 </manifest>
